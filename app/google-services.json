@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "773502383956",
+    "project_id": "cycleye-948b4",
+    "storage_bucket": "cycleye-948b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:773502383956:android:0ec55c5d3b6dabf5757ac1",
+        "android_client_info": {
+          "package_name": "com.example.cycleye"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "773502383956-o48j31oqf3nn1fu5ec6u8p8uknaovrua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ2xhW5S7_K7QtqqUp6fXeQA35hTCf1Xs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "773502383956-o48j31oqf3nn1fu5ec6u8p8uknaovrua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
