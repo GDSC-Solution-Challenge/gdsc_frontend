@@ -1,0 +1,6 @@
+CardBoard
+Glass
+Metal
+Paper
+Plastic
+Trash
