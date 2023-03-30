@@ -19,7 +19,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.example.cycleye.databinding.ActivityPhotoBinding
 import java.io.File
+import java.io.IOException
 import java.text.SimpleDateFormat
+import java.util.*
 
 class PhotoActivity : AppCompatActivity() {
 
@@ -34,6 +36,11 @@ class PhotoActivity : AppCompatActivity() {
     private lateinit var f: File;
     private var activityResultLauncher :  ActivityResultLauncher<Intent>? = null
     private var saveUri: Uri? = null
+    private var OX_result = ""
+
+    //model
+    private lateinit var C_classifier: Classifier
+    private lateinit var OX_classifier: Classifier
 
     // permissions
     val PERMISSIONS = arrayOf(
@@ -47,10 +54,28 @@ class PhotoActivity : AppCompatActivity() {
         photoBinding = ActivityPhotoBinding.inflate(layoutInflater)
 
         // launcher
+        initClassifier()
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if(result.resultCode == Activity.RESULT_OK){
                 BitmapFactory.decodeFile(f.absolutePath)?.let { image ->
                     binding.imageView.setImageBitmap(image)
+                    val output1 = C_classifier.classify(image)
+                    val output2 = OX_classifier.classify(image)
+                    if (output2.first == "O"){
+                        OX_result = "가능"
+                    }
+                    else if (output2.first == "X"){
+                        OX_result = "불가능"
+                    }
+                    else{
+                        OX_result = "애매"
+                    }
+                    val resultStr1 =
+                        String.format(Locale.ENGLISH, "종류 : %s", output1.first)
+                    val resultStr2 =
+                        String.format(Locale.ENGLISH, "가능여부 : %s", OX_result)
+                    binding.result1Text.text = resultStr1
+                    binding.result2Text.text = resultStr2
                 }
             }
         }
@@ -113,5 +138,16 @@ class PhotoActivity : AppCompatActivity() {
         val sdf = SimpleDateFormat("yyyyMMdd_HHmmss")
         val filename = sdf.format(System.currentTimeMillis())
         return "${filename}.jpg"
+    }
+
+    private fun initClassifier() {
+        C_classifier = Classifier(this, Classifier.CLASSIFY_MODEL)
+        OX_classifier = Classifier(this, Classifier.OX_MODEL)
+        try {
+            C_classifier.init("models/classification_labels.txt")
+            OX_classifier.init("models/OX_labels.txt")
+        } catch (exception: IOException) {
+            Toast.makeText(this, "Can not init Classifier!!", Toast.LENGTH_SHORT).show()
+        }
     }
 }
