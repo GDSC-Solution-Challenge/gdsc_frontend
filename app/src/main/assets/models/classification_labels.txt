@@ -1,6 +1,13 @@
-CardBoard
+Clothes
+Electronic
+Furniture
 Glass
+Lightbulb
 Metal
 Paper
 Plastic
-Trash
+Pot
+Styrofoam
+Vinyl
+Wood
+
